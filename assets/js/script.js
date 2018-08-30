@@ -1,3 +1,5 @@
+// Funçoes de teste
+
 function iniciaRequest(url) {
 
   var xhttp = new XMLHttpRequest();
@@ -28,6 +30,8 @@ function iniciaRequest(url) {
 
   
 }
+
+// Funçoes de teste
 
 function uploadFile(file) {
   return new Promise((resolve, reject) => {
