@@ -5,14 +5,15 @@ import * as func from "./functions";
 
 let form = document.querySelector("form");
 
-
 form.addEventListener("submit", function(event) {
   event.preventDefault();
   let file = document.querySelector("#file");
-  
-  $("#fornecedor").parent().removeClass('d-none')
 
-  $("#fornecedor > tbody, #accordionProdutos").html('')
+  $("#fornecedor")
+    .parent()
+    .removeClass("d-none");
+
+  $("#fornecedor > tbody, #accordionProdutos").html("");
 
   if (file.files.length) {
     var reader = new FileReader();
@@ -25,7 +26,7 @@ form.addEventListener("submit", function(event) {
         let fornecedor = result.nfeProc.NFe[0].infNFe[0].emit[0];
         let html_fornecedor = func.tbodyFornecedor(fornecedor);
 
-        $('#total_registro').html(qtd_total);
+        $("#total_registro").html(qtd_total);
         $("#fornecedor > tbody").append(html_fornecedor);
 
         for (let ind = 0; ind < qtd_total; ind++) {
@@ -44,8 +45,6 @@ form.addEventListener("submit", function(event) {
 var clipboard = new Clipboard(".btn");
 
 clipboard.on("success", function(e) {
-  e.container = "Copiado!";
-  console.log(e);
   e.clearSelection();
 });
 
@@ -54,31 +53,21 @@ clipboard.on("error", function(e) {
   console.error("Trigger:", e.trigger);
 });
 
-var btns=document.querySelectorAll('.btn');
-for(var i=0;i<btns.length;i++){
-  btns[i].addEventListener('mouseleave',clearTooltip);
-  btns[i].addEventListener('blur',clearTooltip);
-  //btns[i].addEventListener('click', showTooltip(this, 'CCC'));
-}
-
-function clearTooltip(e){
-  e.currentTarget.setAttribute('class','btn');
-  e.currentTarget.removeAttribute('aria-label');
-}
-function showTooltip(elem,msg){
-  elem.setAttribute('class','btn tooltipped tooltipped-s');
+$(document).ready(function(){
   
-  elem.setAttribute('aria-label',msg);
-}
-function fallbackMessage(action){
-  var actionMsg='';
-  var actionKey=(action==='cut'?'X':'C');
-  if(/iPhone|iPad/i.test(navigator.userAgent)){
-    actionMsg='No support :(';
-  }else if(/Mac/i.test(navigator.userAgent)){
-    actionMsg='Press ⌘-'+actionKey+' to '+action;
-  }else{
-    actionMsg='Press Ctrl-'+actionKey+' to '+action;
-  }
-  return actionMsg;
-}
+  $(document).on('click', '[data-clipboard-action]', e => {
+    $("[data-clipboard-action]").attr('aria-label', 'Copiado!')
+    let _this = $(e.currentTarget)
+    _this.addClass("tooltipped tooltipped-n");
+
+    _this.mouseover(f => {
+      _this.removeClass("tooltipped tooltipped-n");
+    })
+
+    if(_this.hasClass('tooltipped')){
+      setTimeout(() => {
+        _this.removeClass("tooltipped tooltipped-n");
+      }, 2000)
+    }
+  });
+})

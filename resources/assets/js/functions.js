@@ -12,7 +12,7 @@ function tbodyFornecedor(dados) {
         <td>
             <small>Fornecedor</small>
             <span id='forn-${id}'>${retornoDoValor(dados.xNome)}</span>
-            <button class='btn btn-primary btn-sm' data-clipboard-action='copy' aria-label="Copiado!" data-clipboard-target='#forn-${id}'>
+            <button class='btn btn-primary btn-sm' data-clipboard-action='copy' data-clipboard-target='#forn-${id}'>
                 <i class='fa fa-clipboard' aria-hidden='true'></i>
             </button>
         </td>
