@@ -103,7 +103,7 @@ function cardProdutos(dados, show = false) {
         <div class="card-header bg-secondary p-1" id="heading-${itemId}">
             <h5 class="mb-0">
                 <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapse-${itemId}" aria-expanded="true">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${retornoDoValor(produto.cProd)} - ${retornoDoValor(produto.xProd[0])}
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${itemId} - ${retornoDoValor(produto.xProd[0])}
                 </button>
             </h5>
         </div>
