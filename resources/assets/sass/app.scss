@@ -1,0 +1,38 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap/scss/bootstrap";
+
+
+
+table tr td {
+    small {
+        font-size: 10px;
+        position: absolute;
+        float: left;
+        margin-top: -5px;
+        font-weight: bold;
+        z-index: 1;
+    }
+    span {
+        position: relative;
+        float: left;
+        top: 7px;
+        z-index: 3;
+    }
+    button {
+        float: right;
+        margin-top: 10px;
+    }
+}
+
+.btn-group-sm >.btn,
+.btn-sm {
+    padding: 0rem .1rem;
+    font-size: .7rem;
+    border-radius: 0rem;
+}
