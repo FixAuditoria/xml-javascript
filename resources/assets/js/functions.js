@@ -1,3 +1,5 @@
+import { log } from "util";
+
 function retornoDoValor(valor)
 {
     return (valor) ? valor : '';
@@ -22,6 +24,14 @@ function retornoPis(valor) {
 }
 
 function retornoCofins(valor) {
+    if(valor.COFINS !== undefined){
+        if(valor.COFINS[0].COFINSAliq !== undefined){
+            if(valor.COFINS[0].COFINSAliq[0].pCOFINS !== undefined){
+                return valor.COFINS[0].COFINSAliq[0].pCOFINS[0];
+            }
+        }
+    }
+    
     if(valor.COFINS !== undefined){
         if(valor.COFINS[0].COFINSOutr !== undefined){
             if(valor.COFINS[0].COFINSOutr[0].pCOFINS !== undefined){
