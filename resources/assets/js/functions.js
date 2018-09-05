@@ -3,6 +3,35 @@ function retornoDoValor(valor)
     return (valor) ? valor : '';
 }
 
+function retornoPis(valor) {
+    if(valor.PIS !== undefined){
+        if(valor.PIS[0].PISAliq !== undefined){
+            if(valor.PIS[0].PISAliq[0].pPIS !== undefined){
+                return valor.PIS[0].PISAliq[0].pPIS[0];
+            }
+        }
+    }
+    if(valor.PIS !== undefined){
+        if(valor.PIS[0].PISOutr !== undefined){
+            if(valor.PIS[0].PISOutr[0].pPIS !== undefined){
+                return valor.PIS[0].PISOutr[0].pPIS[0];
+            }
+        }
+    }
+    return '';
+}
+
+function retornoCofins(valor) {
+    if(valor.COFINS !== undefined){
+        if(valor.COFINS[0].COFINSOutr !== undefined){
+            if(valor.COFINS[0].COFINSOutr[0].pCOFINS !== undefined){
+                return valor.COFINS[0].COFINSOutr[0].pCOFINS[0];
+            }
+        }
+    }
+    return '';
+}
+
 
 function tbodyFornecedor(dados) {
   let endereco = dados.enderEmit[0];
@@ -95,7 +124,7 @@ function cardProdutos(dados, show = false) {
     let itemId = dados.$.nItem
     let produto = dados.prod[0]
     let imposto = dados.imposto[0]
-    let valor = parseFloat(produto.vUnCom[0]).toFixed(2)
+    let valor = parseFloat(produto.vUnCom).toFixed(2)
     let margem = document.querySelector('#margem').value
     let valor_venda = (margem.length == 0) ? (valor * 2).toFixed(2) : (valor * margem).toFixed(2)
   return `
@@ -103,7 +132,7 @@ function cardProdutos(dados, show = false) {
         <div class="card-header bg-secondary p-1" id="heading-${itemId}">
             <h5 class="mb-0">
                 <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapse-${itemId}" aria-expanded="true">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${itemId} - ${retornoDoValor(produto.xProd[0])}
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${itemId} - ${retornoDoValor(produto.xProd)}
                 </button>
             </h5>
         </div>
@@ -152,11 +181,11 @@ function cardProdutos(dados, show = false) {
                         <div class='row'>
                             <div class='col-lg-6'>
                                 <p>
-                                    <b>PIS: </b>${retornoDoValor(imposto.PIS[0].PISAliq[0].pPIS[0])}</p>
+                                    <b>PIS: </b>${retornoPis(imposto)}</p>
                             </div>
                             <div class='col-lg-6'>
                                 <p>
-                                    <b>COFINS: </b>${retornoDoValor(imposto.COFINS[0].COFINSAliq[0].pCOFINS[0])}</p>
+                                    <b>COFINS: </b>${retornoCofins(imposto)}</p>
                             </div>
                         </div>
                     </div>
