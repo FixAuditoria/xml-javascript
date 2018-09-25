@@ -1,15 +1,7 @@
 import { log } from "util";
 
 function retornoDoValor(valor) {
-  let val = "";
-  if (valor) {
-    if (typeof valor === "object") {
-      val = valor[0].toUpperCase();
-    } else {
-      val = valor;
-    }
-  }
-  return val;
+  return valor ? (valor === "string" ? valor : valor[0].toUpperCase()) : "";
 }
 
 function retornoPis(valor) {
