@@ -1,47 +1,53 @@
 import { log } from "util";
 
-function retornoDoValor(valor)
-{
-    return (valor) ? valor : '';
+function retornoDoValor(valor) {
+  let val = "";
+  if (valor) {
+    if (typeof valor === "object") {
+      val = valor[0].toUpperCase();
+    } else {
+      val = valor;
+    }
+  }
+  return val;
 }
 
 function retornoPis(valor) {
-    if(valor.PIS !== undefined){
-        if(valor.PIS[0].PISAliq !== undefined){
-            if(valor.PIS[0].PISAliq[0].pPIS !== undefined){
-                return valor.PIS[0].PISAliq[0].pPIS[0];
-            }
-        }
+  if (valor.PIS !== undefined) {
+    if (valor.PIS[0].PISAliq !== undefined) {
+      if (valor.PIS[0].PISAliq[0].pPIS !== undefined) {
+        return valor.PIS[0].PISAliq[0].pPIS[0];
+      }
     }
-    if(valor.PIS !== undefined){
-        if(valor.PIS[0].PISOutr !== undefined){
-            if(valor.PIS[0].PISOutr[0].pPIS !== undefined){
-                return valor.PIS[0].PISOutr[0].pPIS[0];
-            }
-        }
+  }
+  if (valor.PIS !== undefined) {
+    if (valor.PIS[0].PISOutr !== undefined) {
+      if (valor.PIS[0].PISOutr[0].pPIS !== undefined) {
+        return valor.PIS[0].PISOutr[0].pPIS[0];
+      }
     }
-    return '';
+  }
+  return "";
 }
 
 function retornoCofins(valor) {
-    if(valor.COFINS !== undefined){
-        if(valor.COFINS[0].COFINSAliq !== undefined){
-            if(valor.COFINS[0].COFINSAliq[0].pCOFINS !== undefined){
-                return valor.COFINS[0].COFINSAliq[0].pCOFINS[0];
-            }
-        }
+  if (valor.COFINS !== undefined) {
+    if (valor.COFINS[0].COFINSAliq !== undefined) {
+      if (valor.COFINS[0].COFINSAliq[0].pCOFINS !== undefined) {
+        return valor.COFINS[0].COFINSAliq[0].pCOFINS[0];
+      }
     }
-    
-    if(valor.COFINS !== undefined){
-        if(valor.COFINS[0].COFINSOutr !== undefined){
-            if(valor.COFINS[0].COFINSOutr[0].pCOFINS !== undefined){
-                return valor.COFINS[0].COFINSOutr[0].pCOFINS[0];
-            }
-        }
-    }
-    return '';
-}
+  }
 
+  if (valor.COFINS !== undefined) {
+    if (valor.COFINS[0].COFINSOutr !== undefined) {
+      if (valor.COFINS[0].COFINSOutr[0].pCOFINS !== undefined) {
+        return valor.COFINS[0].COFINSOutr[0].pCOFINS[0];
+      }
+    }
+  }
+  return "";
+}
 
 function tbodyFornecedor(dados) {
   let endereco = dados.enderEmit[0];
@@ -131,29 +137,36 @@ function tbodyFornecedor(dados) {
 }
 
 function cardProdutos(dados, show = false) {
-    let itemId = dados.$.nItem
-    let produto = dados.prod[0]
-    let imposto = dados.imposto[0]
-    let valor = parseFloat(produto.vUnCom).toFixed(2)
-    let margem = document.querySelector('#margem').value
-    let valor_venda = (margem.length == 0) ? (valor * 2).toFixed(2) : (valor * margem).toFixed(2)
+  let itemId = dados.$.nItem;
+  let produto = dados.prod[0];
+  let imposto = dados.imposto[0];
+  let valor = parseFloat(produto.vUnCom).toFixed(2);
+  let margem = document.querySelector("#margem").value;
+  let valor_venda =
+    margem.length == 0 ? (valor * 2).toFixed(2) : (valor * margem).toFixed(2);
   return `
     <div class="card">
         <div class="card-header bg-secondary p-1" id="heading-${itemId}">
             <h5 class="mb-0">
                 <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapse-${itemId}" aria-expanded="true">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${itemId} - ${retornoDoValor(produto.xProd)}
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${itemId} - ${retornoDoValor(
+    produto.xProd
+  )}
                 </button>
             </h5>
         </div>
 
-        <div id="collapse-${itemId}" class="collapse ${(show) ? 'show' : null} " aria-labelledby="heading-${itemId}" data-parent="#accordionProdutos">
+        <div id="collapse-${itemId}" class="collapse ${
+    show ? "show" : null
+  } " aria-labelledby="heading-${itemId}" data-parent="#accordionProdutos">
             <div class="card-body">
                 <div class='row'>
                     <div class='col-12'>
                         <p>
                             <b>Produto:</b>
-                            <span id='prod-${itemId}' class='texto'>${retornoDoValor(produto.xProd)}</span>
+                            <span id='prod-${itemId}' class='texto'>${retornoDoValor(
+    produto.xProd
+  )}</span>
                             <button class='btn btn-primary btn-sm' data-clipboard-action='copy' data-clipboard-target='#prod-${itemId}'>Copiar</button>
                         </p>
                         <hr>
@@ -161,14 +174,20 @@ function cardProdutos(dados, show = false) {
                     <div class='col-lg-6'>
                         <p>
                             <b>Código:</b>
-                            <span id='cod-${itemId}' class='texto'>${retornoDoValor(produto.cProd)}</span>
+                            <span id='cod-${itemId}' class='texto'>${retornoDoValor(
+    produto.cProd
+  )}</span>
                             <button class='btn btn-primary btn-sm' data-clipboard-action='copy' data-clipboard-target='#cod-${itemId}'>Copiar</button>
                         </p>
                         <p>
-                            <b>Quantidade:</b> ${retornoDoValor(produto.qCom)}</p>
+                            <b>Quantidade:</b> ${retornoDoValor(
+                              produto.qCom
+                            )}</p>
                         <p>
                             <b>NCM:</b>
-                            <span id='ncm-${itemId}'>${retornoDoValor(produto.NCM)}</span>
+                            <span id='ncm-${itemId}'>${retornoDoValor(
+    produto.NCM
+  )}</span>
                             <button class='btn btn-primary btn-sm' data-clipboard-action='copy' data-clipboard-target='#ncm-${itemId}'>Copiar</button>
                         </p>
                     </div>
@@ -176,13 +195,19 @@ function cardProdutos(dados, show = false) {
                     <div class='col-lg-6'>
                         <p>
                             <b>Código de Barras:</b>
-                            <span id='bar-${itemId}'>${retornoDoValor(produto.cEAN)}</span>
+                            <span id='bar-${itemId}'>${retornoDoValor(
+    produto.cEAN
+  )}</span>
                             <button class='btn btn-primary btn-sm' data-clipboard-action='copy' data-clipboard-target='#bar-${itemId}'>Copiar</button>
                         </p>
                         <p>
-                            <b>Valor unitário:</b> R$ ${retornoDoValor(valor)}</p>
+                            <b>Valor unitário:</b> R$ ${retornoDoValor(
+                              valor
+                            )}</p>
                         <p>
-                            <b>Preço sugerido:</b> R$ ${retornoDoValor(valor_venda)}</p>
+                            <b>Preço sugerido:</b> R$ ${retornoDoValor(
+                              valor_venda
+                            )}</p>
 
                     </div>
 
@@ -205,6 +230,5 @@ function cardProdutos(dados, show = false) {
     </div>
     `;
 }
-
 
 export { tbodyFornecedor, cardProdutos };
