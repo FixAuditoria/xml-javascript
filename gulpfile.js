@@ -1,4 +1,4 @@
-const gulp = require('gulp')
+const gulp = require('gulp');
 const xmlJsConverter = require('xml-js-converter');
 
 const elixir = require('laravel-elixir');

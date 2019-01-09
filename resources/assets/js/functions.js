@@ -1,7 +1,7 @@
 import { log } from "util";
 
 function retornoDoValor(valor) {
-  return valor ? (valor === "string" ? valor : valor[0].toUpperCase()) : "";
+  return valor ? (typeof valor === "string" ? valor : valor[0].toUpperCase()) : "";
 }
 
 function retornoPis(valor) {
@@ -132,25 +132,21 @@ function cardProdutos(dados, show = false) {
   let itemId = dados.$.nItem;
   let produto = dados.prod[0];
   let imposto = dados.imposto[0];
-  let valor = parseFloat(produto.vUnCom).toFixed(2);
+  let quantidade = parseFloat(produto.qCom).toFixed(2);
+  let valor = parseFloat(produto.vUnCom[0]).toFixed(2);
   let margem = document.querySelector("#margem").value;
-  let valor_venda =
-    margem.length == 0 ? (valor * 2).toFixed(2) : (valor * margem).toFixed(2);
+  let valor_venda = margem.length == 0 ? (valor * 2).toFixed(2) : (valor * margem).toFixed(2);
   return `
     <div class="card">
         <div class="card-header bg-secondary p-1" id="heading-${itemId}">
             <h5 class="mb-0">
                 <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapse-${itemId}" aria-expanded="true">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${itemId} - ${retornoDoValor(
-    produto.xProd
-  )}
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> ${itemId} - ${retornoDoValor(produto.xProd)}
                 </button>
             </h5>
         </div>
 
-        <div id="collapse-${itemId}" class="collapse ${
-    show ? "show" : null
-  } " aria-labelledby="heading-${itemId}" data-parent="#accordionProdutos">
+        <div id="collapse-${itemId}" class="collapse ${show ? "show" : null} " aria-labelledby="heading-${itemId}" data-parent="#accordionProdutos">
             <div class="card-body">
                 <div class='row'>
                     <div class='col-12'>
@@ -173,7 +169,7 @@ function cardProdutos(dados, show = false) {
                         </p>
                         <p>
                             <b>Quantidade:</b> ${retornoDoValor(
-                              produto.qCom
+                              quantidade
                             )}</p>
                         <p>
                             <b>NCM:</b>

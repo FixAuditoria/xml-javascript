@@ -64,7 +64,7 @@ $(document).ready(function () {
 
         _this.mouseover(f => {
             _this.removeClass("tooltipped tooltipped-n");
-        })
+        });
 
         if (_this.hasClass('tooltipped')) {
             setTimeout(() => {
